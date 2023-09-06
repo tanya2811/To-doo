@@ -1,0 +1,140 @@
+<html>
+  <head>
+    <title><%= title %></title>
+    <script
+      src="https://kit.fontawesome.com/946b4a5fa9.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        background-color: #1f1f38;
+        color: #fff;
+        justify-content: center;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .list {
+        background-color: #2c2c6c;
+
+        width: 70%;
+        align-items: center;
+        margin-left: 200px;
+        padding: 20px;
+        border-radius: 20px;
+        margin-top: 20px;
+      }
+      .search {
+        background-color: white;
+        width: 70%;
+        margin-left: 150px;
+        border: 1px solid grey;
+        border-radius: 30px;
+        padding-left: 30px;
+        padding-top: 7px;
+      }
+      .search input {
+        width: 70%;
+        height: 17px;
+        background-color: transparent;
+        border: none;
+        font-size: 18px;
+        outline: none;
+      }
+
+      .search button {
+        padding-left: 140px;
+        margin-top: 9px;
+        font-size: 18px;
+        background-color: transparent;
+        border: none;
+      }
+
+      .task ol li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid grey;
+      }
+      .fa-regular {
+        padding: 5px;
+        color: #fff;
+      }
+      .fa-trash {
+        padding: 7px;
+        color: red;
+      }
+      p {
+        font-size: larger;
+        display: inline-block;
+        padding-left: 7px;
+      }
+      #selec {
+        padding: 5px 10px;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: white;
+      }
+      #s {
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="big">
+      <div class="head">
+        <h1>TO-DO LIST</h1>
+      </div>
+      <div class="list">
+        <div class="search">
+          <form action="/to-do" method="post">
+            <input type="text" placeholder="Enter your task" name="task" />
+            <button type="submit"><i class="fa-solid fa-plus"></i></button>
+          </form>
+        </div>
+        <div class="task">
+          <ol type="1">
+            <% for(let i of task_list){ %>
+            <li>
+              <div class="items">
+                <input
+                  type="checkbox"
+                  class="check"
+                  id="checks"
+                  onclick="handleClick()"
+                />
+                <p  id="ps"><%= i.task %></p>
+              </div>
+              <div class="delete-but">
+                <p id="selec">Doing</p>
+                <a href="/updatecont/?id=<%= i._id %>"
+                  ><i class="fa-regular fa-pen-to-square"></i
+                ></a>
+                <a href="/deletecont/?id=<%= i._id %>"
+                  ><i class="fa-solid fa-trash"></i
+                ></a>
+              </div>
+            </li>
+            <%}%>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <script>
+      let checkboxes = document.getElementById("checks");
+      const selec = document.getElementById("selec");
+      function handleClick() {
+        // if (checkboxes.checked) {
+          console.log("done");
+          selec.innerHTML = "Done";
+        // } else {
+        //   console.log("doing");
+        //   selec.innerHTML = "Doing";
+        // }
+      }
+      checkboxes.addEventListener("click", handleClick);
+    </script>
+  </body>
+</html>
